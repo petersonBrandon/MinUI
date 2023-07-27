@@ -58,6 +58,7 @@
   "types": "dist/index.d.ts",
   "dependencies": {
     "@rollup/plugin-terser": "^0.4.3",
+    "react-icons": "^4.10.1",
     "rollup-plugin-peer-deps-external": "^2.2.4",
     "tslib": "^2.6.1"
   }
