@@ -1,24 +1,31 @@
-import React from "react";
-import { ComponentStory, ComponentMeta } from "@storybook/react";
-import Button from "./Button";
+import type { Meta, StoryObj } from "@storybook/react";
+
+import { Button } from "./Button";
+
 import "../tailwind.css";
 
-// More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
-export default {
-  title: "ReactComponentLibrary/Button",
+const meta = {
+  title: "MinUI Components/Button",
   component: Button,
-} as ComponentMeta<typeof Button>;
+  parameters: {
+    layout: "centered",
+  },
+  tags: ["autodocs"],
+  argTypes: {},
+} satisfies Meta<typeof Button>;
 
-// More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
-const Template: ComponentStory<typeof Button> = (args) => <Button {...args} />;
+export default meta;
+type Story = StoryObj<typeof meta>;
 
-export const HelloWorld = Template.bind({});
-// More on args: https://storybook.js.org/docs/react/writing-stories/args
-HelloWorld.args = {
-  label: "Hello world!",
+export const Primary: Story = {
+  args: {
+    enabled: true,
+    label: "Button",
+  },
 };
 
-export const ClickMe = Template.bind({});
-ClickMe.args = {
-  label: "Click me!",
+export const Secondary: Story = {
+  args: {
+    label: "Button",
+  },
 };
