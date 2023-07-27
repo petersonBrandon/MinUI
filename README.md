@@ -1,6 +1,6 @@
 ![MinUI Banner](https://firebasestorage.googleapis.com/v0/b/minui-55e3d.appspot.com/o/MinUiBanner.png?alt=media&token=544fd447-ce59-4397-82b8-2f905a93a369)
 
-<h1 style="text-align: center">🛠 WORK IN PROGRESS 🛠</h1>
+# 🛠 WORK IN PROGRESS 🛠
 
 # Welcome to MinUI
 
