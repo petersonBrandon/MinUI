@@ -16,7 +16,43 @@ Welcome to MinUI, a sleek and sophisticated React component library that epitomi
 
 ## Installation & Setup
 
-MinUI is not currently available.
+Install MinUI from NPM:
+
+```bash
+npm install minui
+```
+
+## Current Component Support
+
+| Component     | Status |
+| :------------ | :----: |
+| Accordion     |   ❌   |
+| Alert         |   ❌   |
+| Avatar        |   ❌   |
+| Badge         |   ❌   |
+| Button        |   ✅   |
+| Card          |   ❌   |
+| Carousel      |   ❌   |
+| Checkbox      |   ❌   |
+| Date Picker   |   ❌   |
+| Dropdown      |   ❌   |
+| Form          |   ❌   |
+| Icon          |   ❌   |
+| Image Gallery |   ❌   |
+| Input         |   ❌   |
+| Loader        |   ❌   |
+| Modal         |   ❌   |
+| Navbar        |   ❌   |
+| Radio Group   |   ❌   |
+| Select        |   ❌   |
+| Slider        |   ❌   |
+| Switch        |   ❌   |
+| Table         |   ❌   |
+| Tabs          |   ❌   |
+| Textarea      |   ❌   |
+| Tooltip       |   ❌   |
+
+\*More components will be added in the future.
 
 ## Contributing
 
