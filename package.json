@@ -1,5 +1,5 @@
 {
-  "name": "@petersonBrandon/MinUI",
+  "name": "minui",
   "version": "1.0.0",
   "description": "Minimalist react component library",
   "publishConfig": {
