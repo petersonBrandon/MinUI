@@ -38,6 +38,7 @@ const Button = ({
   theme = "dark",
   children,
   size = "normal",
+  onClick,
 }: ButtonProps) => {
   let variantStyle = "";
   switch (variant) {
@@ -111,6 +112,7 @@ const Button = ({
       } ease-in-out duration-300 p-2 disabled:opacity-50 
       flex flex-row justify-center items-center`}
       disabled={disabled}
+      onClick={onClick}
     >
       {children}
     </button>
