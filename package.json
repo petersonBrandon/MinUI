@@ -6,7 +6,7 @@
     "registry": "https://npm.pkg.github.com/petersonBrandon"
   },
   "scripts": {
-    "rollup": "rollup -c",
+    "rollup": "rollup -c --bundleConfigAsCjs",
     "test": "jest",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build"
