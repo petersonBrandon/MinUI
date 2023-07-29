@@ -1,4 +1,4 @@
-import React from "react";
+import React, { MouseEventHandler } from "react";
 
 export interface ButtonProps {
   /**
@@ -31,15 +31,16 @@ export interface ButtonProps {
   onClick?: () => void;
 }
 
-const Button = ({
+const Button: React.FC<ButtonProps> = ({
   disabled = false,
   variant = "primary",
   rounded = true,
   theme = "dark",
   children,
   size = "normal",
-  onClick = () => {},
-}: ButtonProps) => {
+  onClick,
+  ...props
+}) => {
   let variantStyle = "";
   switch (variant) {
     case "primary":
@@ -107,12 +108,16 @@ const Button = ({
 
   return (
     <button
-      onClick={onClick}
+      onClick={() => {
+        console.log("clicked");
+        onClick;
+      }}
       className={`${variantStyle} ${sizeStyle} ${
         rounded ? "rounded-md" : ""
       } ease-in-out duration-300 p-2 disabled:opacity-50 
       flex flex-row justify-center items-center`}
       disabled={disabled}
+      {...props}
     >
       {children}
     </button>
