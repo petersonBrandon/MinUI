@@ -2,7 +2,7 @@ import React, { MouseEventHandler } from "react";
 
 export interface ButtonProps {
   /**
-   * The button lable.
+   * The button variant.
    */
   variant?: "primary" | "secondary" | "danger" | "outline" | "ghost";
   /**
@@ -109,8 +109,7 @@ const Button: React.FC<ButtonProps> = ({
   return (
     <button
       onClick={() => {
-        console.log("clicked");
-        onClick;
+        onClick?.();
       }}
       className={`${variantStyle} ${sizeStyle} ${
         rounded ? "rounded-md" : ""
