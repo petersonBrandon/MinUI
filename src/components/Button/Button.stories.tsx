@@ -78,56 +78,6 @@ export const Danger: Story = {
   },
 };
 
-export const Outline_Dark: Story = {
-  args: {
-    variant: "outline",
-    theme: "dark",
-    children: "Button",
-  },
-};
-
-export const Outline_Light: Story = {
-  args: {
-    variant: "outline",
-    theme: "light",
-    children: "Button",
-  },
-  parameters: {
-    backgrounds: {
-      values: [
-        { name: "red", value: "#f00" },
-        { name: "green", value: "#0f0" },
-        { name: "blue", value: "#00f" },
-      ],
-    },
-  },
-};
-
-export const Ghost_Dark: Story = {
-  args: {
-    variant: "ghost",
-    theme: "dark",
-    children: "Button",
-  },
-};
-
-export const Ghost_Light: Story = {
-  args: {
-    variant: "ghost",
-    theme: "light",
-    children: "Button",
-  },
-  parameters: {
-    backgrounds: {
-      values: [
-        { name: "red", value: "#f00" },
-        { name: "green", value: "#0f0" },
-        { name: "blue", value: "#00f" },
-      ],
-    },
-  },
-};
-
 export const Small: Story = {
   args: {
     size: "small",
@@ -165,14 +115,6 @@ export const Icon_With_Text: Story = {
     size: "icon",
     theme: "dark",
     children: [<MdOutlineHome className="mr-2" />, `Home`],
-  },
-};
-
-export const Non_Rounded: Story = {
-  args: {
-    rounded: false,
-    theme: "dark",
-    children: "Button",
   },
 };
 

@@ -29,22 +29,6 @@ describe("Button", () => {
     render(<Button variant="danger" />);
   });
 
-  test("Renders the outline dark Button component", () => {
-    render(<Button variant="outline" theme="dark" />);
-  });
-
-  test("Renders the outline light Button component", () => {
-    render(<Button variant="outline" theme="light" />);
-  });
-
-  test("Renders the ghost dark Button component", () => {
-    render(<Button variant="ghost" theme="dark" />);
-  });
-
-  test("Renders the ghost light Button component", () => {
-    render(<Button variant="ghost" theme="light" />);
-  });
-
   test("Renders the small Button component", () => {
     render(<Button size="small" />);
   });
