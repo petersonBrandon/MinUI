@@ -39,7 +39,7 @@ npm install @petersonBrandon/minui
 | Form          |   ❌   |
 | Icon          |   ❌   |
 | Image Gallery |   ❌   |
-| Input         |   ❌   |
+| Text Input    |   ✅   |
 | Loader        |   ❌   |
 | Modal         |   ❌   |
 | Navbar        |   ❌   |
