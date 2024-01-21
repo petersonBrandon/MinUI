@@ -1,18 +1,14 @@
-import React, { MouseEventHandler } from "react";
+import React, { MouseEventHandler, useState } from "react";
 
 export interface ButtonProps {
   /**
    * The button variant.
    */
-  variant?: "primary" | "secondary" | "danger" | "outline" | "ghost";
+  variant?: "primary" | "underline" | "danger";
   /**
    * Is the button disabled?
    */
   disabled?: boolean;
-  /**
-   * Is Rounded?
-   */
-  rounded?: boolean;
   /**
    * Theme variant.
    */
@@ -34,45 +30,45 @@ export interface ButtonProps {
 const Button: React.FC<ButtonProps> = ({
   disabled = false,
   variant = "primary",
-  rounded = true,
   theme = "dark",
   children,
   size = "normal",
   onClick,
   ...props
 }) => {
+  const [clicked, setClick] = useState(false);
   let variantStyle = "";
   let lineStyle = "";
   switch (variant) {
     case "primary":
       if (theme === "dark") {
-        variantStyle = "text-purple-400";
-        lineStyle = "bg-purple-400";
-      } else {
-        variantStyle = "text-purple-600";
-        lineStyle = "bg-purple-600";
-      }
-      break;
-    case "secondary":
-      if (theme === "dark") {
         variantStyle = "text-white";
-        lineStyle = "bg-white";
+        lineStyle = "ring-white ring-2 rounded-xl";
       } else {
         variantStyle = "text-black";
-        lineStyle = "bg-black";
+        lineStyle = "ring-black ring-2 rounded-xl";
+      }
+      break;
+    case "underline":
+      if (theme === "dark") {
+        variantStyle = "text-white";
+        lineStyle = "border-white border-b-2";
+      } else {
+        variantStyle = "text-black";
+        lineStyle = "border-black border-b-2";
       }
       break;
     case "danger":
       variantStyle = "text-rose-600";
-      lineStyle = "bg-rose-600";
+      lineStyle = "ring-rose-600 ring-2 rounded-xl";
       break;
     default:
       if (theme === "dark") {
-        variantStyle = "text-purple-400";
-        lineStyle = "bg-purple-400";
+        variantStyle = "text-white";
+        lineStyle = "ring-white ring-2 rounded-xl";
       } else {
-        variantStyle = "text-purple-600";
-        lineStyle = "bg-purple-600";
+        variantStyle = "text-black";
+        lineStyle = "ring-black ring-2 rounded-xl";
       }
       break;
   }
@@ -80,20 +76,19 @@ const Button: React.FC<ButtonProps> = ({
   let sizeStyle = "";
   switch (size) {
     case "small":
-      sizeStyle = "pt-1 text-xs";
+      sizeStyle = "px-3 py-1 text-xs";
       break;
     case "normal":
-      sizeStyle = "pt-2 text-base";
+      sizeStyle = "px-6 py-2 text-base";
       break;
     case "large":
-      sizeStyle = "pt-4 text-xl";
+      sizeStyle = "px-8 py-4 text-xl";
       break;
     case "icon":
-      sizeStyle = "pt-2 text-base";
+      sizeStyle = "p-2 text-base";
       break;
     default:
-      sizeStyle = "pt-2 text-base";
-
+      sizeStyle = "px-6 py-2 text-base";
       break;
   }
 
@@ -102,19 +97,26 @@ const Button: React.FC<ButtonProps> = ({
       onClick={() => {
         onClick?.();
       }}
-      className={`${variantStyle} ${sizeStyle} ease-in-out duration-300 disabled:opacity-50 
-        flex flex-col justify-center items-center space-y-2 group p-3`}
+      onMouseDown={() => {
+        setClick(true);
+      }}
+      onMouseUp={() => {
+        setClick(false);
+      }}
+      className={`${variantStyle} ${sizeStyle} relative ease-in-out duration-300 disabled:opacity-50 
+        flex flex-col justify-center items-center group outline-none `}
       disabled={disabled}
       {...props}
     >
+      <span
+        className={`h-full ${lineStyle} w-full ${
+          !disabled && !clicked ? "group-hover:scale-110" : ""
+        } ease-in-out duration-300 absolute
+        ${clicked ? "scale-90" : ""}`}
+      />
       <div className="flex flex-row justify-center items-center">
         {children}
       </div>
-      <span
-        className={`h-[2px]  ${lineStyle} w-full ${
-          disabled ? "" : "group-hover:translate-y-1"
-        } ease-in-out duration-300`}
-      />
     </button>
   );
 };
