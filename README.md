@@ -22,6 +22,8 @@ Install MinUI from NPM:
 npm install @petersonBrandon/minui
 ```
 
+Visit the [WIKI](https://github.com/petersonBrandon/MinUI/wiki) to see per component documentation.
+
 ## Current Component Support
 
 | Component     | Status |
