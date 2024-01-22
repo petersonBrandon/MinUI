@@ -37,7 +37,7 @@ Visit the [WIKI](https://github.com/petersonBrandon/MinUI/wiki) to see per compo
 | Carousel      |   ❌   |
 | Checkbox      |   ❌   |
 | Date Picker   |   ❌   |
-| Dropdown      |   ❌   |
+| Dropdown      |   ✅   |
 | Form          |   ❌   |
 | Icon          |   ❌   |
 | Image Gallery |   ❌   |
