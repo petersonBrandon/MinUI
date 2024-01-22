@@ -2,11 +2,11 @@ import React, { MouseEventHandler, useState } from "react";
 
 export interface TextInputProps {
   /**
-   * The button variant.
+   * The TextInput variant.
    */
   variant?: "primary" | "danger" | "underline";
   /**
-   * Is the button disabled?
+   * Is the TextInput disabled?
    */
   disabled?: boolean;
   /**
