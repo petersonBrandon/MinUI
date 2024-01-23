@@ -19,7 +19,7 @@ Welcome to MinUI, a sleek and sophisticated React component library that epitomi
 Install MinUI from NPM:
 
 ```bash
-npm install @petersonBrandon/minui
+npm install @petersonBrandon/minui@latest
 ```
 
 Visit the [WIKI](https://github.com/petersonBrandon/MinUI/wiki) to see per component documentation.
