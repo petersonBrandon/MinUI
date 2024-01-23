@@ -49,7 +49,7 @@ const Dropdown: React.FC<DropdownProps> = ({
   defaultOption = "Select",
   showDefault = true,
   onSelect,
-  options = ["First", "Second", "Third", "Fourth", "Fifth", "Sixth", "Seventh"],
+  options,
 }) => {
   const wrapperRef = useRef(null);
   useOutsideActionTrigger(wrapperRef, () => {
