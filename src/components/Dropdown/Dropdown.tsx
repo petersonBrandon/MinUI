@@ -1,5 +1,4 @@
 import React, { useEffect, useRef, useState } from "react";
-import { HiChevronDown, HiChevronUp } from "react-icons/hi";
 
 export interface DropdownProps {
   /**
@@ -126,7 +125,7 @@ const Dropdown: React.FC<DropdownProps> = ({
       ref={wrapperRef}
       className={`${variantStyle} ${sizeStyle} ${
         disabled && "opacity-50"
-      } ease-in-out duration-300 relative`}
+      } ease-in-out duration-300 relative w-full`}
     >
       {/* Dropdown Button */}
       <div className="relative px-4 py-2 flex justify-center items-center group min-w-[10rem] w-full">
