@@ -30,7 +30,7 @@ Visit the [WIKI](https://github.com/petersonBrandon/MinUI/wiki) to see per compo
 | :------------ | :----: |
 | Accordion     |   ❌   |
 | Alert         |   ✅   |
-| Avatar        |   ❌   |
+| Avatar        |   ✅   |
 | Badge         |   ❌   |
 | Button        |   ✅   |
 | Card          |   ❌   |
