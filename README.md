@@ -29,15 +29,15 @@ Visit the [WIKI](https://github.com/petersonBrandon/MinUI/wiki) to see per compo
 | Component     | Status |
 | :------------ | :----: |
 | Accordion     |   ❌   |
-| Alert         |   ✅   |
-| Avatar        |   ✅   |
+| Alert         |   🕑   |
+| Avatar        |   🕑   |
 | Badge         |   ❌   |
 | Button        |   ✅   |
 | Card          |   ❌   |
 | Carousel      |   ❌   |
 | Checkbox      |   ❌   |
 | Date Picker   |   ❌   |
-| Dropdown      |   ✅   |
+| Dropdown      |   🕑   |
 | Form          |   ❌   |
 | Icon          |   ❌   |
 | Image Gallery |   ❌   |
