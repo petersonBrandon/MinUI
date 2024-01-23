@@ -1,5 +1,4 @@
 import React from "react";
-import { HiOutlineInformationCircle } from "react-icons/hi";
 
 export interface AlertProps {
   /**
@@ -48,8 +47,8 @@ const Alert: React.FC<AlertProps> = ({
   title = "Title",
   description,
   children,
-  iconComponent = <HiOutlineInformationCircle className="w-full h-full" />,
-  hideIcon = false,
+  iconComponent,
+  hideIcon = true,
   ...props
 }) => {
   let variantStyle = "";

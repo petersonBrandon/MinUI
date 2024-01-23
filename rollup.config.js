@@ -7,6 +7,7 @@ import packageJson from "./package.json" assert { type: "json" };
 import peerDepsExternal from "rollup-plugin-peer-deps-external";
 import postcss from "rollup-plugin-postcss";
 import terser from "@rollup/plugin-terser";
+import { nodeResolve } from "@rollup/plugin-node-resolve";
 
 export default [
   {
@@ -24,6 +25,7 @@ export default [
       },
     ],
     plugins: [
+      nodeResolve(),
       peerDepsExternal(),
       resolve(),
       commonjs(),
