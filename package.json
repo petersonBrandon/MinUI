@@ -1,6 +1,6 @@
 {
   "name": "@petersonBrandon/minui",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Minimalist react component library",
   "publishConfig": {
     "registry": "https://npm.pkg.github.com/petersonBrandon"
