@@ -118,7 +118,10 @@ const TextInput: React.FC<TextInputProps> = ({
       </p>
       <input
         type="text"
-        onChange={(e) => onChange(e.target.value)}
+        onChange={(e) => {
+          setText(e.target.value);
+          onChange(e.target.value);
+        }}
         className={`${variantStyle} ${sizeStyle} ${
           rounded ? "rounded-md" : ""
         } disabled:opacity-50 
