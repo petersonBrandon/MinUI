@@ -29,7 +29,7 @@ Visit the [WIKI](https://github.com/petersonBrandon/MinUI/wiki) to see per compo
 | Component     | Status |
 | :------------ | :----: |
 | Accordion     |   ❌   |
-| Alert         |   ❌   |
+| Alert         |   ✅   |
 | Avatar        |   ❌   |
 | Badge         |   ❌   |
 | Button        |   ✅   |
