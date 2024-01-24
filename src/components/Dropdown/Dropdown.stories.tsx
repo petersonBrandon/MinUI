@@ -5,8 +5,6 @@ import "../tailwind.css";
 
 import Dropdown from "./Dropdown";
 
-import { MdOutlineHome } from "react-icons/md";
-
 const meta = {
   title: "MinUI Components/Dropdown",
   component: Dropdown,
@@ -24,6 +22,11 @@ export const Primary_Dark: Story = {
   args: {
     variant: "primary",
     theme: "dark",
-    placeholder: "Testing",
+    options: [
+      "111111111111111111111111111111111111111111111111111111111111",
+      "2",
+      "3",
+    ],
+    onSelect: (e) => console.log(e),
   },
 };

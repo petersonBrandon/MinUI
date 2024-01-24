@@ -55,9 +55,12 @@ const Dropdown: React.FC<DropdownProps> = ({
     setOpen(false);
   });
 
+  const delay = (ms: number) =>
+    new Promise((resolve) => setTimeout(resolve, ms));
+
   const [selected, setSelected] = useState(defaultOption);
   const [open, setOpen] = useState(false);
-  const [clicked, setClicked] = useState(false);
+  const [close, setClose] = useState(false);
 
   const optionsList = showDefault ? [defaultOption, ...options] : options;
 
@@ -120,26 +123,80 @@ const Dropdown: React.FC<DropdownProps> = ({
       break;
   }
 
+  // Calculate maximum width among options
+  const maxOptionWidth =
+    Math.max(
+      ...optionsList.map((option) => {
+        const textWidth = option.length;
+        return textWidth;
+      })
+    ) + 9;
+
+  const minWidthStyle = { width: `${maxOptionWidth}ch` };
+  const maxWidthStyle = { maxWidth: "100%" };
+
+  // Calculate dropdown position
+  const dropdownPosition = () => {
+    const dropdownButton = wrapperRef.current as HTMLElement | null; // Add type assertion
+    const windowHeight = window.innerHeight;
+
+    if (dropdownButton) {
+      const buttonRect = dropdownButton.getBoundingClientRect();
+      const spaceAbove = buttonRect.top;
+      const spaceBelow = windowHeight - buttonRect.bottom;
+
+      // Adjust position based on available space
+      if (spaceBelow >= spaceAbove) {
+        // Enough space below, show options downward
+        return {
+          top: "100%",
+          maxHeight: `calc(${windowHeight}px - ${buttonRect.bottom}px)`,
+        };
+      } else {
+        // Not enough space below, show options upward
+        return { bottom: "100%", maxHeight: `${buttonRect.top}px` };
+      }
+    }
+
+    // Default position if dropdownButton is null
+    return { top: "100%" };
+  };
+
+  useEffect(() => {
+    const closeItems = async () => {
+      await delay(100);
+      setOpen(false);
+      setClose(false);
+    };
+    if (close) {
+      closeItems();
+    }
+  }, [close]);
+
   return (
     <div
       ref={wrapperRef}
+      style={{ ...minWidthStyle, ...maxWidthStyle }}
       className={`${variantStyle} ${sizeStyle} ${
         disabled && "opacity-50"
-      } ease-in-out duration-300 relative w-full`}
+      } ease-in-out duration-300 relative`}
     >
       {/* Dropdown Button */}
-      <div className="relative px-4 py-2 flex justify-center items-center group min-w-[10rem] w-full">
+      <div
+        className={`relative px-4 py-2 flex justify-center items-center group`}
+      >
         <span
           onClick={() => {
             if (!disabled) {
-              setOpen(!open);
-              setClicked(true);
+              if (open) {
+                setClose(true);
+              } else {
+                setOpen(true);
+              }
             }
           }}
-          onAnimationEnd={() => setClicked(false)}
           className={`
         ${rounded && "rounded-md"}
-        ${clicked && "animate-click-bounce"}
         ${lineStyle}
         ${!disabled && "cursor-pointer"}
         absolute w-full h-full
@@ -148,76 +205,92 @@ const Dropdown: React.FC<DropdownProps> = ({
         <button
           disabled={disabled}
           onClick={() => {
-            setOpen(!open);
-            setClicked(true);
+            if (open) {
+              setClose(true);
+            } else {
+              setOpen(true);
+            }
           }}
           className={`flex justify-between items-center space-x-5 z-10 w-full`}
         >
-          <p>{selected}</p>
-          {open ? (
-            <svg
-              stroke="currentColor"
-              fill="currentColor"
-              stroke-width="0"
-              viewBox="0 0 20 20"
-              aria-hidden="true"
-              height="1em"
-              width="1em"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                fill-rule="evenodd"
-                d="M14.707 12.707a1 1 0 01-1.414 0L10 9.414l-3.293 3.293a1 1 0 01-1.414-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 010 1.414z"
-                clip-rule="evenodd"
-              ></path>
-            </svg>
-          ) : (
-            <svg
-              stroke="currentColor"
-              fill="currentColor"
-              stroke-width="0"
-              viewBox="0 0 20 20"
-              aria-hidden="true"
-              height="1em"
-              width="1em"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                fill-rule="evenodd"
-                d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                clip-rule="evenodd"
-              ></path>
-            </svg>
-          )}
+          <p className="w-11/12 text-start overflow-hidden truncate">
+            {selected}
+          </p>
+          <div className="w-1/12 flex justify-end">
+            {open ? (
+              <svg
+                stroke="currentColor"
+                fill="currentColor"
+                stroke-width="0"
+                viewBox="0 0 20 20"
+                aria-hidden="true"
+                height="1em"
+                width="1em"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M14.707 12.707a1 1 0 01-1.414 0L10 9.414l-3.293 3.293a1 1 0 01-1.414-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 010 1.414z"
+                  clip-rule="evenodd"
+                ></path>
+              </svg>
+            ) : (
+              <svg
+                stroke="currentColor"
+                fill="currentColor"
+                stroke-width="0"
+                viewBox="0 0 20 20"
+                aria-hidden="true"
+                height="1em"
+                width="1em"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                  clip-rule="evenodd"
+                ></path>
+              </svg>
+            )}
+          </div>
         </button>
       </div>
       {/* Dropdown Options */}
-      {open && (
+      <div
+        style={dropdownPosition()}
+        className={`${close ? "animate-fadeOut" : ""} ${
+          open ? "block" : "hidden"
+        } w-full`}
+      >
         <div
           className={`${
             rounded && "rounded-md"
-          } ${lineStyle} absolute w-full mt-3 flex flex-col opacity-0 animate-fadeIn z-50 max-h-56 overflow-scroll`}
+          } ${lineStyle} absolute w-full mt-2 flex flex-col opacity-0 
+          animate-fadeIn
+          z-50 max-h-56 overflow-y-scroll overflow-x-hidden p-2`}
         >
           {optionsList.map((option) => {
-            console.log(option === selected);
             return (
               <button
                 onClick={() => {
                   setSelected(option);
                   onSelect(option);
-                  setOpen(false);
+                  setClose(true);
                 }}
                 disabled={option === selected}
                 className={`
                 w-full flex justify-start items-center px-4 py-2
-                ${option === selected ? bgStyle : bgHoverStyle}`}
+                rounded-md
+                ${option !== selected && bgHoverStyle}`}
               >
-                {option}
+                <p className="w-full overflow-hidden truncate text-left">
+                  {option}
+                </p>
               </button>
             );
           })}
         </div>
-      )}
+      </div>
     </div>
   );
 };
