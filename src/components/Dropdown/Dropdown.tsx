@@ -37,6 +37,10 @@ export interface DropdownProps {
    * Options for selecting
    */
   options: Array<string>;
+  /**
+   * Background color
+   */
+  bgColor?: string;
 }
 
 const Dropdown: React.FC<DropdownProps> = ({
@@ -49,6 +53,7 @@ const Dropdown: React.FC<DropdownProps> = ({
   showDefault = true,
   onSelect,
   options = [],
+  bgColor = theme === "dark" ? "#000000" : "#ffffff",
 }) => {
   const wrapperRef = useRef(null);
   useOutsideActionTrigger(wrapperRef, () => {
@@ -132,35 +137,8 @@ const Dropdown: React.FC<DropdownProps> = ({
       })
     ) + 9;
 
-  const minWidthStyle = { width: `${maxOptionWidth}ch` };
-  const maxWidthStyle = { maxWidth: "100%" };
-
-  // Calculate dropdown position
-  const dropdownPosition = () => {
-    const dropdownButton = wrapperRef.current as HTMLElement | null; // Add type assertion
-    const windowHeight = window.innerHeight;
-
-    if (dropdownButton) {
-      const buttonRect = dropdownButton.getBoundingClientRect();
-      const spaceAbove = buttonRect.top;
-      const spaceBelow = windowHeight - buttonRect.bottom;
-
-      // Adjust position based on available space
-      if (spaceBelow >= spaceAbove) {
-        // Enough space below, show options downward
-        return {
-          top: "100%",
-          maxHeight: `calc(${windowHeight}px - ${buttonRect.bottom}px)`,
-        };
-      } else {
-        // Not enough space below, show options upward
-        return { bottom: "100%", maxHeight: `${buttonRect.top}px` };
-      }
-    }
-
-    // Default position if dropdownButton is null
-    return { top: "100%" };
-  };
+  const minWidthStyle = { minWidth: `${maxOptionWidth}ch` };
+  const maxWidthStyle = { width: "100%" };
 
   useEffect(() => {
     const closeItems = async () => {
@@ -176,9 +154,9 @@ const Dropdown: React.FC<DropdownProps> = ({
   return (
     <div
       ref={wrapperRef}
-      style={{ ...minWidthStyle, ...maxWidthStyle }}
-      className={`${variantStyle} ${sizeStyle} ${
-        disabled && "opacity-50"
+      style={{ ...minWidthStyle, ...maxWidthStyle, backgroundColor: bgColor }}
+      className={`${variantStyle} ${sizeStyle} ${disabled && "opacity-50"} ${
+        rounded && "rounded-md"
       } ease-in-out duration-300 relative`}
     >
       {/* Dropdown Button */}
@@ -257,12 +235,12 @@ const Dropdown: React.FC<DropdownProps> = ({
       </div>
       {/* Dropdown Options */}
       <div
-        style={dropdownPosition()}
         className={`${close ? "animate-fadeOut" : ""} ${
           open ? "block" : "hidden"
         } w-full`}
       >
         <div
+          style={{ backgroundColor: bgColor }}
           className={`${
             rounded && "rounded-md"
           } ${lineStyle} absolute w-full mt-2 flex flex-col opacity-0 
