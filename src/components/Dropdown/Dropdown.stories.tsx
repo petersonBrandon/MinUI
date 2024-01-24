@@ -21,12 +21,9 @@ type Story = StoryObj<typeof meta>;
 export const Primary_Dark: Story = {
   args: {
     variant: "primary",
-    theme: "dark",
-    options: [
-      "111111111111111111111111111111111111111111111111111111111111",
-      "2",
-      "3",
-    ],
+    defaultOption: "Select",
+    options: ["Apple", "Bannana", "Orange"],
+
     onSelect: (e) => console.log(e),
   },
 };

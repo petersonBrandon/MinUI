@@ -10,10 +10,6 @@ export interface AlertProps {
    */
   rounded?: boolean;
   /**
-   * Theme variant.
-   */
-  theme?: "dark" | "light";
-  /**
    * Any children.
    */
   children?: any;
@@ -42,7 +38,6 @@ export interface AlertProps {
 const Alert: React.FC<AlertProps> = ({
   variant = "default",
   rounded = true,
-  theme = "dark",
   size = "normal",
   title = "Title",
   description,
@@ -53,22 +48,10 @@ const Alert: React.FC<AlertProps> = ({
 }) => {
   let variantStyle = "";
   switch (variant) {
-    case "default":
-      if (theme === "dark") {
-        variantStyle = "text-white border-white";
-      } else {
-        variantStyle = "text-black border-black";
-      }
-      break;
     case "danger":
-      variantStyle = "text-rose-600 border-rose-600";
+      variantStyle = "!text-rose-600 !border-rose-600";
       break;
     default:
-      if (theme === "dark") {
-        variantStyle = "text-white border-white";
-      } else {
-        variantStyle = "text-black border-black";
-      }
       break;
   }
 
@@ -102,7 +85,7 @@ const Alert: React.FC<AlertProps> = ({
     <div
       className={`${variantStyle} ${sizeStyle} ${
         rounded ? "rounded-md" : ""
-      } ease-in-out duration-300 my-6
+      } ease-in-out duration-300 text-inherit border-current
       outline-none bg-transparent group flex justify-start items-start border-2 px-4 py-2 w-full space-x-3`}
     >
       {!hideIcon && (

@@ -8,7 +8,7 @@ import TextInput from "./TextInput";
 import { MdOutlineHome } from "react-icons/md";
 
 const meta = {
-  title: "MinUI Components/Input",
+  title: "MinUI Components/TextInput",
   component: TextInput,
   parameters: {
     layout: "centered",
@@ -23,7 +23,6 @@ type Story = StoryObj<typeof meta>;
 export const Primary_Dark: Story = {
   args: {
     variant: "primary",
-    theme: "dark",
     placeholder: "Testing",
   },
 };

@@ -10,10 +10,6 @@ export interface ButtonProps {
    */
   disabled?: boolean;
   /**
-   * Theme variant.
-   */
-  theme?: "dark" | "light";
-  /**
    * Any children.
    */
   children?: any;
@@ -25,14 +21,18 @@ export interface ButtonProps {
    * On click action.
    */
   onClick?: () => void;
+  /**
+   * Is rounded?
+   */
+  rounded?: boolean;
 }
 
 const Button: React.FC<ButtonProps> = ({
   disabled = false,
   variant = "primary",
-  theme = "dark",
   children,
   size = "normal",
+  rounded = true,
   onClick,
   ...props
 }) => {
@@ -41,35 +41,17 @@ const Button: React.FC<ButtonProps> = ({
   let lineStyle = "";
   switch (variant) {
     case "primary":
-      if (theme === "dark") {
-        variantStyle = "text-white";
-        lineStyle = "ring-white ring-2 rounded-xl";
-      } else {
-        variantStyle = "text-black";
-        lineStyle = "ring-black ring-2 rounded-xl";
-      }
+      lineStyle = "border-2";
       break;
     case "underline":
-      if (theme === "dark") {
-        variantStyle = "text-white";
-        lineStyle = "border-white border-b-2";
-      } else {
-        variantStyle = "text-black";
-        lineStyle = "border-black border-b-2";
-      }
+      lineStyle = "border-b-2 !rounded-none";
       break;
     case "danger":
-      variantStyle = "text-rose-600";
-      lineStyle = "ring-rose-600 ring-2 rounded-xl";
+      variantStyle = "!text-rose-600";
+      lineStyle = "!border-rose-600 border-2";
       break;
     default:
-      if (theme === "dark") {
-        variantStyle = "text-white";
-        lineStyle = "ring-white ring-2 rounded-xl";
-      } else {
-        variantStyle = "text-black";
-        lineStyle = "ring-black ring-2 rounded-xl";
-      }
+      lineStyle = "border-2";
       break;
   }
 
@@ -95,24 +77,21 @@ const Button: React.FC<ButtonProps> = ({
   return (
     <button
       onClick={() => {
+        setClick(true);
         onClick?.();
       }}
-      onMouseDown={() => {
-        setClick(true);
-      }}
-      onMouseUp={() => {
-        setClick(false);
-      }}
       className={`${variantStyle} ${sizeStyle} relative ease-in-out duration-300 disabled:opacity-50 
-        flex flex-col justify-center items-center group outline-none `}
+        flex flex-col justify-center items-center group outline-none text-inherit w-full min-w-fit
+        ${!disabled ? "hover:opacity-50" : ""}`}
       disabled={disabled}
       {...props}
     >
       <span
-        className={`h-full ${lineStyle} w-full ${
-          !disabled && !clicked ? "group-hover:scale-110" : ""
-        } ease-in-out duration-300 absolute
-        ${clicked ? "scale-90" : ""}`}
+        onAnimationEnd={() => setClick(false)}
+        className={`h-full ${lineStyle} ${
+          rounded && "rounded-xl"
+        } w-full ease-in-out duration-300 absolute border-current
+        ${clicked ? "animate-click-bounce" : ""}`}
       />
       <div className="flex flex-row justify-center items-center">
         {children}

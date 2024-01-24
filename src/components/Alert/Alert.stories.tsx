@@ -23,7 +23,6 @@ type Story = StoryObj<typeof meta>;
 export const Primary_Dark: Story = {
   args: {
     variant: "default",
-    theme: "dark",
     title: "Wait!",
     description: "Are your sure you want to continue?",
   },

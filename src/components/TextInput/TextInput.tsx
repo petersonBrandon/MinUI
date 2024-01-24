@@ -14,10 +14,6 @@ export interface TextInputProps {
    */
   rounded?: boolean;
   /**
-   * Theme variant.
-   */
-  theme?: "dark" | "light";
-  /**
    * Size type.
    */
   size?: "small" | "normal" | "large";
@@ -35,7 +31,6 @@ const TextInput: React.FC<TextInputProps> = ({
   disabled = false,
   variant = "primary",
   rounded = true,
-  theme = "dark",
   size = "normal",
   placeholder = "",
   onChange,
@@ -44,29 +39,10 @@ const TextInput: React.FC<TextInputProps> = ({
   const [text, setText] = useState("");
   let variantStyle = "";
   switch (variant) {
-    case "primary":
-      if (theme === "dark") {
-        variantStyle = "text-white border-white";
-      } else {
-        variantStyle = "text-black border-black";
-      }
-      break;
     case "danger":
-      variantStyle = "text-rose-600 border-rose-600";
-      break;
-    case "underline":
-      if (theme === "dark") {
-        variantStyle = "text-white border-white";
-      } else {
-        variantStyle = "text-black border-black";
-      }
+      variantStyle = "!text-rose-600 !border-rose-600";
       break;
     default:
-      if (theme === "dark") {
-        variantStyle = "text-white border-white";
-      } else {
-        variantStyle = "text-black border-black";
-      }
       break;
   }
 
@@ -90,7 +66,7 @@ const TextInput: React.FC<TextInputProps> = ({
     <div
       className={`${variantStyle} ${sizeStyle} ${
         rounded ? "rounded-md" : ""
-      } ease-in-out duration-300 my-6
+      } ease-in-out duration-300 mt-7 text-inherit border-current
       outline-none bg-transparent group flex justify-start items-center
       ${variant === "underline" ? " border-b-2 rounded-none" : ""}
       ${variant === "primary" || variant === "danger" ? " border-2" : ""}
@@ -125,7 +101,7 @@ const TextInput: React.FC<TextInputProps> = ({
         className={`${variantStyle} ${sizeStyle} ${
           rounded ? "rounded-md" : ""
         } disabled:opacity-50 
-          outline-none bg-transparent p-3 relative z-20`}
+          outline-none bg-transparent p-3 relative z-20 w-full`}
         disabled={disabled}
         {...props}
       />

@@ -14,10 +14,6 @@ export interface DropdownProps {
    */
   rounded?: boolean;
   /**
-   * Theme variant.
-   */
-  theme?: "dark" | "light";
-  /**
    * Size type.
    */
   size?: "small" | "normal" | "large";
@@ -47,17 +43,16 @@ const Dropdown: React.FC<DropdownProps> = ({
   disabled = false,
   variant = "primary",
   rounded = true,
-  theme = "dark",
   size = "normal",
   defaultOption = "Select",
   showDefault = true,
   onSelect,
   options = [],
-  bgColor = theme === "dark" ? "#000000" : "#ffffff",
+  bgColor,
 }) => {
-  const wrapperRef = useRef(null);
+  const wrapperRef = useRef<HTMLDivElement | null>(null);
   useOutsideActionTrigger(wrapperRef, () => {
-    setOpen(false);
+    setClose(true);
   });
 
   const delay = (ms: number) =>
@@ -66,49 +61,29 @@ const Dropdown: React.FC<DropdownProps> = ({
   const [selected, setSelected] = useState(defaultOption);
   const [open, setOpen] = useState(false);
   const [close, setClose] = useState(false);
+  const [hoverTextColor, setHoverTextColor] = useState("#ffffff");
 
   const optionsList = showDefault ? [defaultOption, ...options] : options;
 
   let variantStyle = "";
   let lineStyle = "";
-  let bgHoverStyle = "";
-  let bgStyle = "";
+  let backgroundColor = "";
 
-  if (theme === "dark") {
-    bgHoverStyle = "hover:bg-white hover:text-black";
-    bgStyle = "bg-white text-black";
+  if (bgColor != undefined) {
+    backgroundColor = bgColor;
   } else {
-    bgHoverStyle = "hover:bg-black hover:text-white";
-    bgStyle = "bg-black text-white";
+    backgroundColor = "inherit";
   }
 
   switch (variant) {
     case "primary":
-      if (theme === "dark") {
-        variantStyle = "text-white";
-        lineStyle = "border-white border-2";
-      } else {
-        variantStyle = "text-black border-black";
-        lineStyle = "border-black border-2";
-      }
+      lineStyle = "border-2";
       break;
     case "underline":
-      if (theme === "dark") {
-        variantStyle = "text-white border-white";
-        lineStyle = "border-white border-b-2 rounded-none";
-      } else {
-        variantStyle = "text-black border-black";
-        lineStyle = "border-black border-b-2 rounded-none";
-      }
+      lineStyle = "border-b-2 !rounded-none";
       break;
     default:
-      if (theme === "dark") {
-        variantStyle = "text-white border-white";
-        lineStyle = "border-white border-2";
-      } else {
-        variantStyle = "text-black border-black";
-        lineStyle = "border-black border-2";
-      }
+      lineStyle = "border-2";
       break;
   }
 
@@ -141,6 +116,23 @@ const Dropdown: React.FC<DropdownProps> = ({
   const maxWidthStyle = { width: "100%" };
 
   useEffect(() => {
+    if (wrapperRef.current) {
+      // Accessing the parent node from the child ref
+      const parentNode = wrapperRef.current.parentNode as HTMLElement;
+
+      // Accessing styles of the parent node
+      if (parentNode) {
+        const parentStyles = window.getComputedStyle(parentNode);
+
+        // Getting the background color
+        const backgroundColor =
+          parentStyles.getPropertyValue("background-color");
+        setHoverTextColor(backgroundColor);
+      }
+    }
+  });
+
+  useEffect(() => {
     const closeItems = async () => {
       await delay(100);
       setOpen(false);
@@ -154,10 +146,14 @@ const Dropdown: React.FC<DropdownProps> = ({
   return (
     <div
       ref={wrapperRef}
-      style={{ ...minWidthStyle, ...maxWidthStyle, backgroundColor: bgColor }}
+      style={{
+        ...minWidthStyle,
+        ...maxWidthStyle,
+        backgroundColor: backgroundColor,
+      }}
       className={`${variantStyle} ${sizeStyle} ${disabled && "opacity-50"} ${
         rounded && "rounded-md"
-      } ease-in-out duration-300 relative`}
+      } ease-in-out duration-300 relative text-inherit`}
     >
       {/* Dropdown Button */}
       <div
@@ -178,7 +174,7 @@ const Dropdown: React.FC<DropdownProps> = ({
         ${lineStyle}
         ${!disabled && "cursor-pointer"}
         absolute w-full h-full
-         ease-in-out duration-300 z-0`}
+         ease-in-out duration-300 z-0 border-current`}
         />
         <button
           disabled={disabled}
@@ -237,14 +233,14 @@ const Dropdown: React.FC<DropdownProps> = ({
       <div
         className={`${close ? "animate-fadeOut" : ""} ${
           open ? "block" : "hidden"
-        } w-full`}
+        } w-full ${bgColor == undefined && "bg-inherit"}`}
       >
         <div
-          style={{ backgroundColor: bgColor }}
+          style={{ backgroundColor: backgroundColor }}
           className={`${
             rounded && "rounded-md"
           } ${lineStyle} absolute w-full mt-2 flex flex-col opacity-0 
-          animate-fadeIn
+          animate-fadeIn border-current
           z-50 max-h-56 overflow-y-scroll overflow-x-hidden p-2`}
         >
           {optionsList.map((option) => {
@@ -258,10 +254,21 @@ const Dropdown: React.FC<DropdownProps> = ({
                 disabled={option === selected}
                 className={`
                 w-full flex justify-start items-center px-4 py-2
-                rounded-md
-                ${option !== selected && bgHoverStyle}`}
+                rounded-md group
+                ${option !== selected && `hover:bg-current`}`}
               >
-                <p className="w-full overflow-hidden truncate text-left">
+                <p
+                  style={
+                    bgColor != undefined
+                      ? ({ "--bg-color": bgColor } as React.CSSProperties)
+                      : ({
+                          "--bg-color": hoverTextColor,
+                        } as React.CSSProperties)
+                  }
+                  className={`w-full overflow-hidden truncate text-left ${
+                    option !== selected && `group-hover:text-[var(--bg-color)]`
+                  }`}
+                >
                   {option}
                 </p>
               </button>
