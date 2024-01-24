@@ -105,13 +105,13 @@ const Alert: React.FC<AlertProps> = ({
       } ease-in-out duration-300 my-6
       outline-none bg-transparent group flex justify-start items-start border-2 px-4 py-2 w-full space-x-3`}
     >
-      <div
-        className={`${
-          hideIcon ? "hidden" : "block"
-        } ${iconSize} translate-y-[6px] ease-in-out duration-300`}
-      >
-        {iconComponent}
-      </div>
+      {!hideIcon && (
+        <div
+          className={`${iconSize} translate-y-[6px] ease-in-out duration-300`}
+        >
+          {iconComponent}
+        </div>
+      )}
       <div className="flex flex-col">
         <h3
           className={`${
